@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}Premium Plans - Uptime Monitor{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">Upgrade Your Plan</h2>
+            <div>
+                {% if session.is_premium %}
+                    <span class="badge badge-premium">PREMIUM USER</span>
+                {% else %}
+                    <span class="badge">FREE PLAN</span>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="plans-grid">
+            <div class="plan-card">
+                <h3>Free Plan</h3>
+                <div class="plan-price">$0</div>
+                <ul class="plan-features">
+                    <li><i class="fas fa-check" style="color: var(--success);"></i> 2 URLs Monitoring</li>
+                    <li><i class="fas fa-check" style="color: var(--success);"></i> 5-minute Interval</li>
+                    <li><i class="fas fa-times" style="color: var(--danger);"></i> No Email Alerts</li>
+                    <li><i class="fas fa-times" style="color: var(--danger);"></i> Basic Analytics</li>
+                    <li><i class="fas fa-times" style="color: var(--danger);"></i> 30-day Logs</li>
+                </ul>
+                {% if not session.is_premium %}
+                    <button class="btn btn-outline" disabled>Current Plan</button>
+                {% endif %}
+            </div>
+            
+            <div class="plan-card premium">
+                <h3><i class="fas fa-crown"></i> Premium Plan</h3>
+                <div class="plan-price">$9.99<span style="font-size: 1rem; color: var(--gray);">/month</span></div>
+                <ul class="plan-features">
+                    <li><i class="fas fa-check" style="color: var(--success);"></i> Unlimited URLs</li>
+                    <li><i class="fas fa-check" style="color: var(--success);"></i> 1-minute Interval</li>
+                    <li><i class="fas fa-check" style="color: var(--success);"></i> Email & SMS Alerts</li>
+                    <li><i class="fas fa-check" style="color: var(--success);"></i> Advanced Analytics</li>
+                    <li><i class="fas fa-check" style="color: var(--success);"></i> 1-year Logs</li>
+                    <li><i class="fas fa-check" style="color: var(--success);"></i> API Access</li>
+                    <li><i class="fas fa-check" style="color: var(--success);"></i> Priority Support</li>
+                </ul>
+                {% if session.is_premium %}
+                    <button class="btn btn-primary" disabled>Current Plan</button>
+                {% else %}
+                    <button class="btn btn-primary" id="purchaseBtn">
+                        <i class="fas fa-shopping-cart"></i> Purchase Now
+                    </button>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div style="margin-top: 3rem; text-align: center; color: var(--gray);">
+            <p><i class="fas fa-info-circle"></i> After payment confirmation on Telegram, your account will be upgraded within 24 hours.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.getElementById('purchaseBtn').addEventListener('click', async function() {
+    if (confirm('You will be redirected to Telegram for payment confirmation. Continue?')) {
+        const response = await fetch('/purchase_premium', {
+            method: 'POST'
+        });
+        
+        const data = await response.json();
+        window.open(data.redirect, '_blank');
+        
+        alert('Please complete the payment process on Telegram and wait for account activation.');
+    }
+});
+</script>
+{% endblock %}

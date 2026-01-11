@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Uptime Monitor{% endblock %}
+
+{% block content %}
+<div class="hero">
+    <h1>Monitor Your Websites 24/7</h1>
+    <p>Get instant alerts when your websites go down. Monitor uptime, response time, and performance from locations around the world.</p>
+    {% if session.user_id is not defined %}
+    <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem;">
+        <a href="{{ url_for('register') }}" class="btn btn-primary" style="padding: 1rem 2rem;">
+            <i class="fas fa-rocket"></i> Get Started Free
+        </a>
+        <a href="{{ url_for('login') }}" class="btn btn-outline" style="padding: 1rem 2rem;">
+            <i class="fas fa-sign-in-alt"></i> Login
+        </a>
+    </div>
+    {% endif %}
+</div>
+
+<div class="container">
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-value">99.9%</div>
+            <div class="stat-label">Uptime Guarantee</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value">24/7</div>
+            <div class="stat-label">Monitoring</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value">Instant</div>
+            <div class="stat-label">Alerts</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value">Global</div>
+            <div class="stat-label">Checkpoints</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">Why Choose Our Uptime Monitor?</h2>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+            <div>
+                <h3><i class="fas fa-bolt" style="color: var(--primary);"></i> Real-time Monitoring</h3>
+                <p>Monitor your websites and APIs in real-time from multiple locations.</p>
+            </div>
+            <div>
+                <h3><i class="fas fa-bell" style="color: var(--primary);"></i> Instant Alerts</h3>
+                <p>Get notified immediately when your service goes down or recovers.</p>
+            </div>
+            <div>
+                <h3><i class="fas fa-chart-line" style="color: var(--primary);"></i> Performance Analytics</h3>
+                <p>Detailed reports and analytics to optimize your website performance.</p>
+            </div>
+            <div>
+                <h3><i class="fas fa-mobile-alt" style="color: var(--primary);"></i> Mobile App</h3>
+                <p>Monitor on the go with our mobile-friendly interface.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
